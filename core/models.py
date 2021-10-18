@@ -1,4 +1,36 @@
 from django.db import models
+from django.urls import path, include
+from django.contrib.auth.models import User
+from rest_framework import routers, serializers, viewsets
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
+
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+
+
+
+
+
 
 # Create your models here.
 class Person(models.Model):
@@ -58,6 +90,9 @@ class Category(models.Model):
         verbose_name_plural= 'Categorias'
 
 
+
+
+
 class Product(models.Model):
     categoria = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  verbose_name='Seleccione la categoria del producto')
@@ -72,3 +107,4 @@ class Product(models.Model):
     class Meta:
         verbose_name= 'Producto'
         verbose_name_plural= 'Productos'
+
