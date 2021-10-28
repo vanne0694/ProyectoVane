@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',
     'frontend',
     'inventory',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,4 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+

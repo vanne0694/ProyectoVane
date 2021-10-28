@@ -23,10 +23,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
-    path('api-auth/', include('rest_framework.urls'))
+    #path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-#DATABASE_ROUTERS = ['path.to.AuthRouter', 'path.to.PrimaryReplicaRouter']
-DATABASE_ROUTERS = ['path.to.ConfigR', 'path.to.PrimaryReplicaRouter']
 
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
